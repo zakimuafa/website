@@ -31,6 +31,11 @@
             <input type="text" name="stok" class="form-control" value="<?php echo $brg->stok ?>">
         </div>
 
+        <div class="form-group">
+            <label>Gambar Produk</label>
+            <input type="text" name="gambar" class="form-control" value="<?php echo $brg->gambar ?>">
+        </div>
+
         <button type="submit" class="btn btn-primary btn-sm mt-3"> Simpan</button>
 
         </form>
