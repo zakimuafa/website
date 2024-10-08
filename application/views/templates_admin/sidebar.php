@@ -39,14 +39,14 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_url('admin/data_admin') ?>">
-                    <i class="fas fa-fw fa-file-invoice"></i>
+                    <i class="fas fa-fw fa-file-database"></i>
                     <span>Data Admin</span></a>
             </li>
 
             
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_url('admin/data_user') ?>">
-                    <i class="fas fa-fw fa-file-invoice"></i>
+                    <i class="fas fa-fw fa-file-database"></i>
                     <span>Data User</span></a>
             </li>
 
