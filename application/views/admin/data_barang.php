@@ -10,7 +10,7 @@
         <th>Harga</th>
         <th>Stok</th>
         <th>Gambar Produk</th>
-        <th colspan="3">Aksi</th>
+        <th colspan="2">Aksi</th>
     </tr>
 
     <?php
@@ -25,7 +25,6 @@
         <td><?php echo $brg->harga ?></td>
         <td><?php echo $brg->stok ?></td>
         <td><img src="<?php echo base_url(). '/uploads/'.$brg->gambar ?>" class="card-img-top" style="width: 200px; height: 200px; object-fit: cover;"></td>
-        <td><?php echo anchor('admin/data_barang/detail/' .$brg->id_brg, '<div class="btn btn-success btn-sm"><i class="fa fa-search"></i></div>') ?></td>
         <td><?php echo anchor('admin/data_barang/edit/' .$brg->id_brg, '<div class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></div>') ?></td>
         <td><?php echo anchor('admin/data_barang/hapus/' .$brg->id_brg, '<div class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></div>') ?></td>
     </tr>
