@@ -17,28 +17,28 @@
         <?php 
         $no=1;
         foreach ($this->cart->contents() as $items) : ?>
-
-        <tr>
-            <td><div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-            <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off"></td>
-            <td><?php echo $items['name'] ?></td>
-            <td>
-                <div class="input-group input-group-sm mb-3" style="width: 100px;">
-                    <div class="input-group-prepend">
-                        <button class="btn btn-outline-secondary btn-sm btn-minus" type="button" data-rowid="<?php echo $items['rowid'] ?>">-</button>
-                    </div>
-                    <input type="text" class="form-control text-center" value="<?php echo $items['qty'] ?>" data-rowid="<?php echo $items['rowid'] ?>" readonly>
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary btn-sm btn-plus" type="button" data-rowid="<?php echo $items['rowid'] ?>">+</button>
-                    </div>
-                </div>
-            </td>
-            <td align="right">Rp. <?php echo number_format($items['price'], 0,',','.') ?></td>
-            <td align="right">Rp. <?php echo number_format($items['subtotal'], 0,',','.') ?></td>
-            <td>
-                <a href="<?php echo base_url('dashboard/hapus_item_keranjang/' . $items['rowid']) ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
-            </td>
-        </tr>
+<tr>
+    <td><input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off"></td>
+    <td><?php echo $items['name'] ?></td>
+    <td>
+        <div class="input-group input-group-sm mb-3" style="width: 100px;">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary btn-sm btn-minus" type="button" data-rowid="<?php echo $items['rowid']; ?>">-</button>
+            </div>
+            <input type="text" class="form-control text-center qty-input" value="<?php echo $items['qty']; ?>" data-rowid="<?php echo $items['rowid']; ?>" readonly>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary btn-sm btn-plus" type="button" data-rowid="<?php echo $items['rowid']; ?>">+</button>
+            </div>
+        </div>
+    </td>
+    <td class="price" align="right" data-price="<?php echo $items['price']; ?>">Rp. <?php echo number_format($items['price'], 0, ',', '.'); ?></td>
+    <td class="subtotal" align="right">Rp. <?php echo number_format($items['subtotal'], 0, ',', '.'); ?></td>
+    <td>
+        <a href="<?php echo base_url('dashboard/hapus_item_keranjang/' . $items['rowid']); ?>" class="btn btn-sm btn-danger">
+            <i class="fas fa-trash"></i>
+        </a>
+    </td>
+</tr>
 
         <?php endforeach; ?>
 
@@ -75,14 +75,44 @@ document.getElementById('checkbox1').addEventListener('change', function() {
     }
   }
 });
-    $(document).ready(function() {
-        $('.btn-plus, .btn-minus').on('click', function(e) {
-            e.preventDefault();
+$(document).ready(function() {
+    $('.btn-plus, .btn-minus').on('click', function(e) {
+        e.preventDefault();
 
-            var $button = $(this);
-            var rowid = $button.data('rowid');
-            var qtyInput = $('input[data-rowid="' + rowid + '"]');
-            var currentQty = parseInt(qtyInput.val());
+        var $button = $(this);
+        var rowid = $button.data('rowid');
+        var qtyInput = $('input[data-rowid="' + rowid + '"]');
+        var currentQty = parseInt(qtyInput.val());
+        var newQty = currentQty; 
 
-            if ($button.hasClass('btn-plus')) {
-                qtyInput.val(currentQty + 1);
+        if ($button.hasClass('btn-plus')) {
+            newQty++; 
+        } else {
+            newQty = Math.max(1, currentQty - 1); // Ensure quantity doesn't go below 1
+        }
+
+        $.ajax({
+            url: '<?php echo base_url('dashboard/update_cart'); ?>', // Replace with your update cart route
+            type: 'POST',
+            data: { rowid: rowid, qty: newQty }, 
+            success: function(response) {
+                // Update the cart quantity and subtotal
+                qtyInput.val(newQty);
+                
+                // Update subtotal for the row
+                var price = parseFloat($('.price[data-rowid="' + rowid + '"]').data('price').replace(/[^0-9.-]+/g,""));
+                $('.subtotal[data-rowid="' + rowid + '"]').text('Rp. ' + number_format(price * newQty, 0, ',', '.'));
+
+                // Update the total cart value (consider fetching this dynamically as well)
+                // Example: $('#cart-total').text('Rp. ' + response.cart_total); 
+            },
+            error: function() {
+                alert('Error updating cart!');
+            }
+        });
+    });
+});
+
+// Helper function to format numbers (optional)
+function number_format(number, decimals, dec_point
+</script>
