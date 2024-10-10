@@ -1,3 +1,8 @@
+<script 
+type="text/javascript"
+src="https://app.sandbox.midtrans.com/snap/snap.js"
+data-client-key="SB-Mid-client-JmAg7ERrpAkQFVu3">
+</script>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2"></div>
@@ -46,14 +51,9 @@
                     </select>
                 </div>
 
-                <div class="form-group">
+                <div>
                     <label>Pilih Pembayaran</label>
-                    <select class="form-control">
-                        <option>BCA - XXXXXXX</option>
-                        <option>BNI - XXXXXXX</option>
-                        <option>BRI - XXXXXXX</option>
-                        <option>MANDIRI - XXXXXXX</option>
-                    </select>
+                    <button id="pay-button">Pay!</button>
                 </div>
 
                 <button type="submit" class="btn btn-sm btn-primary mb-3">Pesan</button>
