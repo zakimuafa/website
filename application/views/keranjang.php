@@ -14,27 +14,19 @@
     $no=1;
     foreach ($this->cart->contents() as $items) : ?>
 
-    <tr>
-        <td><div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-        <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off"></td>
-        <td>
-        <div class="input-group input-group-sm mb-3" style="width: 100px;">
-            <div class="input-group-prepend">
-                <button class="btn btn-outline-secondary btn-sm btn-minus" type="button" data-rowid="<?php echo $items['rowid']; ?>">-</button>
-            </div>
-            <input type="text" class="form-control text-center qty-input" value="<?php echo $items['qty']; ?>" data-rowid="<?php echo $items['rowid']; ?>" readonly>
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary btn-sm btn-plus" type="button" data-rowid="<?php echo $items['rowid']; ?>">+</button>
-            </div>
-        </div>
-    </td>
-    <td class="price" align="right" data-price="<?php echo $items['price']; ?>">Rp. <?php echo number_format($items['price'], 0, ',', '.'); ?></td>
-    <td class="subtotal" align="right">Rp. <?php echo number_format($items['subtotal'], 0, ',', '.'); ?></td>
-    <td>
-        <a href="<?php echo base_url('dashboard/hapus_item_keranjang/' . $items['rowid']); ?>" class="btn btn-sm btn-danger">
-            <i class="fas fa-trash"></i>
-        </a>
-    </tr>
+<tr>
+       
+<td>
+  <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+        <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+    </td>  
+           <td><?php echo $items['name'] ?></td>
+            <td>
+            <input type="number" id="qty-<?php echo $items['rowid']; ?>" name="qty" min="1" value="<?php echo $items['qty']; ?>" style="width: 40px;">
+            </td>
+            <td align="right">Rp. <?php echo number_format($items['price'], 0,',','.') ?></td>
+            <td align="right">Rp. <?php echo number_format($items['subtotal'], 0,',','.') ?></td>
+        </tr>
 
     <?php endforeach; ?>
 
@@ -74,3 +66,7 @@ document.getElementById('checkbox1').addEventListener('change', function() {
   }
 });
 </script>
+
+
+
+
