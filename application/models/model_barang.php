@@ -42,4 +42,11 @@ class Model_barang extends CI_Model{
             return false;
         }
     }
+
+    public function search_produk($query) {
+        $this->db->like('name', $query);
+        $query = $this->db->get('produk'); // Ganti 'produk' dengan nama tabel yang sesuai
+        return $query->result();
+    }
+    
 }
