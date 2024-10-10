@@ -31,8 +31,10 @@ $params = array(
         'tanggal_pemesanan' => '',
         'pembayaran'   =>'',
         'pesanan'  => '',
+        'items_details' =>json_decode($_post['detail'],true),
     ),
 );
 
 $snapToken = \Midtrans\Snap::getSnapToken($params);
+echo $snapToken; 
 ?>
