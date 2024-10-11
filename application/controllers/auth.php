@@ -16,6 +16,19 @@ class Auth extends CI_Controller{
             $this->load->view('templates/footer');
         }else {
             $auth = $this->model_auth->cek_login();
+            $user_id = $this->session->userdata('user_id');
+            $query = $this->db->get_where('temp_cart', ['user_id' => $user_id]);
+            foreach ($query->result() as $item) {
+            $data = array(
+                'id'      => $item->product_id,
+                'qty'     => $item->quantity,
+                'price'   => $item->price,
+                'name'    => $this->model_barang->find($item->product_id)->nama_brg // Fetch name
+            );
+        $this->cart->insert($data);
+    }
+
+    $this->db->delete('temp_cart', ['user_id' => $user_id]);
 
             if($auth == FALSE)
             {
@@ -42,8 +55,9 @@ class Auth extends CI_Controller{
     }
 
     public function logout()
-    {
-        $this->session->sess_destroy();
-        redirect('auth/login');
-    }
+   {
+    // Clear only the user-related session data
+    $this->session->unset_userdata(['user_id', 'role_id']); // Adjust according to your session data keys
+    redirect('auth/login');
+   }
 }

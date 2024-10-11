@@ -91,4 +91,49 @@ public function index()
             $this->load->view('detail_barang', $data);
             $this->load->view('templates/footer');
     }
+
+    public function search() {
+        $query = $this->input->get('query');
+        // Logika untuk mencari produk berdasarkan query
+        $data['results'] = $this->model_barang->search_produk($query); // Pastikan Anda membuat fungsi ini di model
+        $data['query'] = $query;
+    
+        $this->load->view('search_results', $data); // Ganti dengan view yang sesuai untuk menampilkan hasil pencarian
+        
+    }
+
+    public function tambah_ke_keranjang($id)
+    {
+    $barang = $this->model_barang->find($id);
+
+    $data = array(
+        'id'      => $barang->id_brg,
+        'qty'     => 1,
+        'price'   => $barang->harga,
+        'name'    => $barang->nama_brg
+    );
+
+    $this->cart->insert($data);
+
+    // Save to temp_cart table
+    $this->db->insert('temp_cart', [
+        'user_id' => $this->session->userdata('user_id'), // Ensure user_id is set
+        'product_id' => $barang->id_brg,
+        'quantity' => 1,
+        'price' => $barang->harga
+    ]);
+
+    redirect('welcome');
+    }
+
+    public function __construct() {
+        parent ::__construct();
+        $this->load->library('cart'); /// initialize the cart library
+        // additional code...
+    }
+
+    // Other methods...
+    
+    
+    
 }
