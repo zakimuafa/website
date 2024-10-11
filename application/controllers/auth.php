@@ -17,7 +17,7 @@ class Auth extends CI_Controller{
         }else {
             $auth = $this->model_auth->cek_login();
             $user_id = $this->session->userdata('user_id');
-            $query = $this->db->get_where('temp_cart', ['user_id' => $user_id]);
+            $query = $this->db->get_where('tb_cart', ['user_id' => $user_id]);
             foreach ($query->result() as $item) {
             $data = array(
                 'id'      => $item->product_id,
@@ -28,7 +28,7 @@ class Auth extends CI_Controller{
         $this->cart->insert($data);
     }
 
-    $this->db->delete('temp_cart', ['user_id' => $user_id]);
+    $this->db->delete('tb_cart', ['user_id' => $user_id]);
 
             if($auth == FALSE)
             {
