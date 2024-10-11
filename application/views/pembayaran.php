@@ -50,13 +50,18 @@ data-client-key="SB-Mid-client-JmAg7ERrpAkQFVu3">
                         <option>POS Indonesia</option>
                     </select>
                 </div>
-
-                <div>
+                <div class="form-group">
                     <label>Pilih Pembayaran</label>
-                    <button id="pay-button">Pay!</button>
+                    <select class="form-control">
+                        <option>BCA - XXXXXXX</option>
+                        <option>BNI - XXXXXXX</option>
+                        <option>BRI - XXXXXXX</option>
+                        <option>MANDIRI - XXXXXXX</option>
+                    </select>
                 </div>
 
-                <button type="submit" class="btn btn-sm btn-primary mb-3">Pesan</button>
+                <button type="submit" id="pesan-button" class="btn btn-sm btn-primary mb-3" disabled>Pesan</button>
+
 
             </form>
 
@@ -66,6 +71,17 @@ data-client-key="SB-Mid-client-JmAg7ERrpAkQFVu3">
             }
             ?>
         </div>
+        <script>
+                const pesanButton = document.getElementById('pesan-button');
+                const inputFields = document.querySelectorAll('input, select');
+
+                inputFields.forEach(field => {
+                    field.addEventListener('form-group', () => {
+                        const allFieldsFilled = Array.prototype.every.call(inputFields, field => field.value.trim() !== '');
+                        pesanButton.disabled = !allFieldsFilled;
+                    });
+                });
+            </script>
         <div class="col-md-2"></div>
     </div>
 </div>
