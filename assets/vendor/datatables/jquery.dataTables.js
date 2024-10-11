@@ -4476,7 +4476,7 @@
 	
 	/**
 	 * Build a regular expression object suitable for searching a table
-	 *  @param {string} sSearch string to search for
+	 *  @param {string} sSearch string to 
 	 *  @param {bool} bRegex treat as a regular expression or not
 	 *  @param {bool} bSmart perform smart filtering or not
 	 *  @param {bool} bCaseInsensitive Do case insensitive matching or not

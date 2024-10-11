@@ -92,15 +92,6 @@ public function index()
             $this->load->view('templates/footer');
     }
 
-    public function search() {
-        $query = $this->input->get('query');
-        // Logika untuk mencari produk berdasarkan query
-        $data['results'] = $this->model_barang->search_produk($query); // Pastikan Anda membuat fungsi ini di model
-        $data['query'] = $query;
-    
-        $this->load->view('search_results', $data); // Ganti dengan view yang sesuai untuk menampilkan hasil pencarian
-        
-    }
 
     public function tambah_keranjang($id)
     {
