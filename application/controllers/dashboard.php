@@ -102,7 +102,7 @@ public function index()
         
     }
 
-    public function tambah_ke_keranjang($id)
+    public function tambah_keranjang($id)
     {
     $barang = $this->model_barang->find($id);
 
@@ -115,8 +115,8 @@ public function index()
 
     $this->cart->insert($data);
 
-    // Save to temp_cart table
-    $this->db->insert('temp_cart', [
+    // Save to tb_cart table
+    $this->db->insert('tb_cart', [
         'user_id' => $this->session->userdata('user_id'), // Ensure user_id is set
         'product_id' => $barang->id_brg,
         'quantity' => 1,
@@ -126,14 +126,8 @@ public function index()
     redirect('welcome');
     }
 
-    public function __construct() {
-        parent ::__construct();
-        $this->load->library('cart'); /// initialize the cart library
-        // additional code...
+    public function initialize() {
+        parent::__construct(); 
+        $this->load->library('cart');
     }
-
-    // Other methods...
-    
-    
-    
 }
