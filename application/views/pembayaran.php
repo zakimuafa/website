@@ -1,8 +1,15 @@
 <script 
-type="text/javascript"
+type="text/javascript async"
 src="https://app.sandbox.midtrans.com/snap/snap.js"
 data-client-key="SB-Mid-client-JmAg7ERrpAkQFVu3">
 </script>
+<style>
+    /* Gaya opsional untuk tombol */
+    button[disabled] {
+      background-color: #ccc; /* Warna tombol dinonaktifkan */
+      cursor: not-allowed; /* Kursor pointer tidak diizinkan */
+    }
+  </style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2"></div>
@@ -27,22 +34,22 @@ data-client-key="SB-Mid-client-JmAg7ERrpAkQFVu3">
 
                 <div class="form-group">
                     <label>Nama Lengkap</label>
-                    <input type="text" name="nama" placeholder="Nama Lengkap Anda" class="form-control">
+                    <input type="text" name="nama" id="nama"placeholder="Nama Lengkap Anda" class="form-control">
                 </div>
 
                 <div class="form-group">
                     <label>Alamat Lengkap</label>
-                    <input type="text" name="alamat" placeholder="Alamat Lengkap Anda" class="form-control">
+                    <input type="text" name="alamat" id="alamat" placeholder="Alamat Lengkap Anda" class="form-control">
                 </div>
 
                 <div class="form-group">
                     <label>No. Telepon</label>
-                    <input type="text" name="no_telp" placeholder="Nomor Telepon Anda" class="form-control">
+                    <input type="text" name="no_telp" id="telepon" placeholder="Nomor Telepon Anda" class="form-control">
                 </div>
 
                 <div class="form-group">
                     <label>Metode Pengiriman</label>
-                    <select class="form-control">
+                    <select id="metode" class="form-control">
                         <option>JNE</option>
                         <option>J&T</option>
                         <option>TIKI</option>
@@ -52,7 +59,7 @@ data-client-key="SB-Mid-client-JmAg7ERrpAkQFVu3">
                 </div>
                 <div class="form-group">
                     <label>Pilih Pembayaran</label>
-                    <select class="form-control">
+                    <select id="pembayaran" class="form-control">
                         <option>BCA - XXXXXXX</option>
                         <option>BNI - XXXXXXX</option>
                         <option>BRI - XXXXXXX</option>
@@ -60,28 +67,49 @@ data-client-key="SB-Mid-client-JmAg7ERrpAkQFVu3">
                     </select>
                 </div>
 
-                <button type="submit" id="pesan-button" class="btn btn-sm btn-primary mb-3" disabled>Pesan</button>
-
-
+                <button type="submit" id="pesan-button"class="btn btn-sm btn-primary mb-3 " disabled  >Pesan</button>
             </form>
-
             <?php 
             }else{
                 echo "<h4>Keranjang Belanja Anda Masih Kosong!";
             }
             ?>
         </div>
-        <script>
-                const pesanButton = document.getElementById('pesan-button');
-                const inputFields = document.querySelectorAll('input, select');
-
-                inputFields.forEach(field => {
-                    field.addEventListener('form-group', () => {
-                        const allFieldsFilled = Array.prototype.every.call(inputFields, field => field.value.trim() !== '');
-                        pesanButton.disabled = !allFieldsFilled;
-                    });
-                });
-            </script>
         <div class="col-md-2"></div>
     </div>
 </div>
+
+
+<script>
+    const namaInput = document.getElementById("nama");
+    const alamatInput = document.getElementById("alamat");
+    const teleponInput = document.getElementById("telepon");
+    const metodeSelect = document.getElementById("metode");
+    const pembayaranSelect = document.getElementById("pembayaran");
+    const pesanButton = document.getElementById("pesan-button");
+
+    // Fungsi untuk memeriksa apakah semua inputan di isi
+    function checkInput() {
+       return namaInput.value.trim() !== "" &&
+              alamatInput.value.trim() !== "" &&
+              teleponInput.value.trim() !== "" &&
+              metodeSelect.value !== "" &&
+              pembayaranSelect.value !== "";
+    }
+
+    // Event listener untuk inputan dan select
+    namaInput.addEventListener("input", checkStatus);
+    alamatInput.addEventListener("input", checkStatus);
+    teleponInput.addEventListener("input", checkStatus);
+    metodeSelect.addEventListener("change", checkStatus);
+    pembayaranSelect.addEventListener("change", checkStatus);
+
+    // Fungsi untuk memeriksa status tombol
+    function checkStatus() {
+      if (checkInput()) {
+        pesanButton.disabled = false;
+      } else {
+        pesanButton.disabled = true;
+      }
+    }
+  </script>
