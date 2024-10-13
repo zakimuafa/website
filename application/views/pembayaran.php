@@ -1,15 +1,3 @@
-<script 
-type="text/javascript async"
-src="https://app.sandbox.midtrans.com/snap/snap.js"
-data-client-key="SB-Mid-client-JmAg7ERrpAkQFVu3">
-</script>
-<style>
-    /* Gaya opsional untuk tombol */
-    button[disabled] {
-      background-color: #ccc; /* Warna tombol dinonaktifkan */
-      cursor: not-allowed; /* Kursor pointer tidak diizinkan */
-    }
-  </style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2"></div>
@@ -17,24 +5,22 @@ data-client-key="SB-Mid-client-JmAg7ERrpAkQFVu3">
             <div class="btn btn-sm btn-success">
                 <?php 
                 $grand_total = 0;
-                if($keranjang = $this->cart->contents())
-                {
-                    foreach ($keranjang as $item)
-                    {
-                        $grand_total = $grand_total + $item['subtotal'];
+                if($keranjang = $this->cart->contents()) {
+                    foreach ($keranjang as $item) {
+                        $grand_total += $item['subtotal'];
                     }
-
-                echo "<h4>Total Belanja Anda: Rp. ".number_format($grand_total, 0,',','.');
-                 ?>
+                    echo "<h4>Total Belanja Anda: Rp. " . number_format($grand_total, 0, ',', '.') . "</h4>";
+                ?>
             </div><br><br>
 
             <h3>Input Alamat Pengiriman dan Pembayaran</h3>
 
             <form method="post" action="<?php echo base_url() ?>dashboard/proses_pesanan">
+                <input type="hidden" name="user_id" value="<?php echo $this->session->userdata('user_id'); ?>">
 
                 <div class="form-group">
                     <label>Nama Lengkap</label>
-                    <input type="text" name="nama" id="nama"placeholder="Nama Lengkap Anda" class="form-control">
+                    <input type="text" name="nama" id="nama" placeholder="Nama Lengkap Anda" class="form-control">
                 </div>
 
                 <div class="form-group">
@@ -49,7 +35,7 @@ data-client-key="SB-Mid-client-JmAg7ERrpAkQFVu3">
 
                 <div class="form-group">
                     <label>Metode Pengiriman</label>
-                    <select id="metode" class="form-control">
+                    <select id="metode" name="metode" class="form-control">
                         <option>JNE</option>
                         <option>J&T</option>
                         <option>TIKI</option>
@@ -57,9 +43,10 @@ data-client-key="SB-Mid-client-JmAg7ERrpAkQFVu3">
                         <option>POS Indonesia</option>
                     </select>
                 </div>
+                
                 <div class="form-group">
                     <label>Pilih Pembayaran</label>
-                    <select id="pembayaran" class="form-control">
+                    <select id="pembayaran" name="pembayaran" class="form-control">
                         <option>BCA - XXXXXXX</option>
                         <option>BNI - XXXXXXX</option>
                         <option>BRI - XXXXXXX</option>
@@ -67,18 +54,17 @@ data-client-key="SB-Mid-client-JmAg7ERrpAkQFVu3">
                     </select>
                 </div>
 
-                <button type="submit" id="pesan-button"class="btn btn-sm btn-primary mb-3 " disabled  >Pesan</button>
+                <button type="submit" id="pesan-button" class="btn btn-sm btn-primary mb-3" disabled>Pesan</button>
             </form>
             <?php 
-            }else{
-                echo "<h4>Keranjang Belanja Anda Masih Kosong!";
-            }
+                } else {
+                    echo "<h4>Keranjang Belanja Anda Masih Kosong!</h4>";
+                }
             ?>
         </div>
         <div class="col-md-2"></div>
     </div>
 </div>
-
 
 <script>
     const namaInput = document.getElementById("nama");
@@ -88,7 +74,6 @@ data-client-key="SB-Mid-client-JmAg7ERrpAkQFVu3">
     const pembayaranSelect = document.getElementById("pembayaran");
     const pesanButton = document.getElementById("pesan-button");
 
-    // Fungsi untuk memeriksa apakah semua inputan di isi
     function checkInput() {
        return namaInput.value.trim() !== "" &&
               alamatInput.value.trim() !== "" &&
@@ -97,19 +82,15 @@ data-client-key="SB-Mid-client-JmAg7ERrpAkQFVu3">
               pembayaranSelect.value !== "";
     }
 
-    // Event listener untuk inputan dan select
+    function checkStatus() {
+      pesanButton.disabled = !checkInput();
+    }
+
     namaInput.addEventListener("input", checkStatus);
     alamatInput.addEventListener("input", checkStatus);
     teleponInput.addEventListener("input", checkStatus);
     metodeSelect.addEventListener("change", checkStatus);
     pembayaranSelect.addEventListener("change", checkStatus);
 
-    // Fungsi untuk memeriksa status tombol
-    function checkStatus() {
-      if (checkInput()) {
-        pesanButton.disabled = false;
-      } else {
-        pesanButton.disabled = true;
-      }
-    }
-  </script>
+    
+</script>
