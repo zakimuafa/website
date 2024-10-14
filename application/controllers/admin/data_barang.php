@@ -85,8 +85,6 @@ class Data_barang extends CI_Controller{
             $gambar = $upload_data['file_name']; 
         }
 
-        }
-
         $data = array(
             'nama_brg'      => $nama_brg,
             'keterangan'    => $keterangan,
