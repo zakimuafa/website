@@ -2,24 +2,12 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <div class="btn btn-sm btn-success">
-                <?php 
-                // Ambil nilai grand_total dari session
-                $grand_total = $this->session->userdata('grand_total');
-                if ($grand_total) {
-                    echo "<h4>Total Belanja Anda: Rp. " . number_format($grand_total, 0, ',', '.') . "</h4>";
-                } else {
-                    echo "<h4>Total Belanja Anda: Rp. 0</h4>";
-                }
-                ?>
-            </div><br><br>
 
             <h3>Input Alamat Pengiriman dan Pembayaran</h3>
 
             <form method="post" action="<?php echo base_url() ?>dashboard/proses_pesanan">
                 <input type="hidden" name="user_id" value="<?php echo $this->session->userdata('user_id'); ?>">
-                <input type="hidden" id="total_belanja" name="total_belanja" value="<?php echo $grand_total; ?>"> <!-- Input hidden untuk total belanja -->
-
+               
                 <div class="form-group">
                     <label>Nama Lengkap</label>
                     <input type="text" name="nama" id="nama" placeholder="Nama Lengkap Anda" class="form-control" required>
