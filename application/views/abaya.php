@@ -1,6 +1,4 @@
 <div class="container-fluid">
-
-    <!-- Carousel -->
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -28,18 +26,22 @@
         </a>
     </div>
 
-    <!-- Products Row -->
+    <div class="container-fluid">
     <div class="row text-center mt-4">
         <?php foreach ($abaya as $brg) : ?>
-            <div class="col-md-4 mb-4"> <!-- Ganti lebar kolom sesuai kebutuhan -->
-                <div class="card">
-                    <img src="<?php echo base_url('/uploads/'.$brg->gambar) ?>" class="card-img-top" alt="...">
-                    <div class="card-body">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-3">
+                <div class="card h-100 d-flex flex-column">
+                    <img src="<?php echo base_url(). '/uploads/'.$brg->gambar ?>" class="card-img-top" alt="...">
+                    <div class="card-body d-flex flex-column">
                         <h5 class="card-title mb-1"><?php echo $brg->nama_brg ?></h5>
                         <small><?php echo $brg->keterangan ?></small><br>
-                        <span class="badge badge-success mb-3">Rp. <?php echo number_format($brg->harga, 0, ',', '.') ?></span>
-                        <div class="d-flex justify-content-between">
-                            <?php echo anchor('dashboard/tambah_ke_keranjang/'.$brg->id_brg, '<div class="btn btn-sm btn-primary">Keranjang</div>') ?>
+                        
+                        <!-- Using a flexbox to push the buttons down -->
+                        <div class="mt-auto">
+                            <span class="badge badge-success mb-2">Rp. <?php echo number_format($brg->harga, 0, ',', '.') ?></span><br>
+                            <span class="badge badge-primary mb-2">
+                                <?php echo anchor('dashboard/tambah_ke_keranjang/'.$brg->id_brg, '<div class="btn btn-sm btn-primary">Tambah ke Keranjang</div>') ?>
+                            </span>
                             <?php echo anchor('dashboard/detail/'.$brg->id_brg, '<div class="btn btn-sm btn-success">Detail</div>') ?>
                         </div>
                     </div>
