@@ -53,9 +53,20 @@ $this->session->set_userdata('grand_total', $grand_total);
 </table>
 
 <div align="right">
-    <a href="<?php echo base_url('dashboard/hapus_keranjang') ?>">
+    <a href="#" onclick="confirmDelete()">
         <div class="btn btn-sm btn-danger">Hapus Keranjang</div>
     </a>
+    <script>
+    function confirmDelete() {
+        const confirmation = confirm("Apakah Anda yakin ingin menghapus keranjang?");
+
+        if (confirmation) {
+            // Redirect to the delete action if the user confirms
+            window.location.href = "<?php echo base_url('dashboard/hapus_keranjang'); ?>";
+        }
+    }
+    </script>
+
     <a href="<?php echo base_url('dashboard/lanjutkan_belanja') ?>">
         <div class="btn btn-sm btn-primary">Lanjutkan Belanja</div>
     </a>
